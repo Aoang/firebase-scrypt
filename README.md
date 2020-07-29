@@ -1,4 +1,10 @@
 # Firebase scrypt
+
+[![GoDoc](https://pkg.go.dev/badge/pkg.go.dev/github.com/Aoang/firebase-scrypt)](https://pkg.go.dev/pkg.go.dev/github.com/Aoang/firebase-scrypt)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Aoang/firebase-scrypt)](https://goreportcard.com/report/github.com/Aoang/firebase-scrypt)
+[![Release](https://img.shields.io/github/v/release/Aoang/firebase-scrypt.svg)](https://github.com/Aoang/firebase-scrypt/releases)
+[![MIT license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
+
 This is the golang implementation of the modified Scrypt algorithm used by Firebase Auth.
 
 ### Sample
