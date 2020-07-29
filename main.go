@@ -9,7 +9,7 @@ import (
 	"golang.org/x/crypto/scrypt"
 )
 
-// default configuration
+// Default configuration
 var Default *crypt
 
 // avoid panic caused by null pointers.
@@ -28,9 +28,8 @@ func Verify(password, passwordHash, salt string) bool {
 }
 
 const (
-	// scrypt (https://www.tarsnap.com/scrypt/scrypt.pdf)
-	P      = 1
-	KeyLen = 32
+	p      = 1
+	keyLen = 32
 )
 
 type crypt struct {
@@ -52,8 +51,8 @@ func New(signerKey, saltSeparator string, rounds, memCost int) *crypt {
 		SaltSeparator: ss,
 		Rounds:        rounds,
 		MemCost:       memCost,
-		P:             P,
-		KeyLen:        KeyLen,
+		P:             p,
+		KeyLen:        keyLen,
 	}
 }
 
@@ -70,7 +69,7 @@ func (c *crypt) Encode(password, salt string) (string, error) {
 
 	ck, err := scrypt.Key([]byte(password),
 		append(s, c.SaltSeparator...),
-		1<<c.MemCost, c.Rounds, P, KeyLen)
+		1<<c.MemCost, c.Rounds, p, keyLen)
 	if err != nil {
 		return "", err
 	}
