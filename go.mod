@@ -1,5 +1,5 @@
 module github.com/Aoang/firebase-scrypt
 
-go 1.14
+go 1.17
 
-require golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de
+require golang.org/x/crypto v0.0.0-20210921155107-089bfa567519

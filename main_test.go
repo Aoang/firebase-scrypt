@@ -4,21 +4,26 @@ import (
 	"testing"
 )
 
+var app *App
+
 func config() {
-	Default = New(
+	var err error
+	if app, err = New(
 		"YE0dO4bwD4JnJafh6lZZfkp1MtKzuKAXQcDCJNJNyeCHairWHKENOkbh3dzwaCdizzOspwr/FITUVlnOAwPKyw==",
 		"Bw==",
 		8,
 		14,
-	)
+	); err != nil {
+		panic(err)
+	}
 }
 
 func TestVerify(t *testing.T) {
 	config()
-	if !Verify(
+	if !app.FirebaseVerify(
 		"8x4WjoDbSxJZdR",
-		"xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==",
 		"sPtDhWcd1MfdAw==",
+		"xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==",
 	) {
 		t.Fail()
 	}
@@ -30,10 +35,10 @@ func BenchmarkVerify(b *testing.B) {
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			Verify(
+			app.FirebaseVerify(
 				"8x4WjoDbSxJZdR",
-				"xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==",
 				"sPtDhWcd1MfdAw==",
+				"xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==",
 			)
 		}
 	})
@@ -41,9 +46,9 @@ func BenchmarkVerify(b *testing.B) {
 
 func TestEncode(t *testing.T) {
 	config()
-	_, err := Encode(
-		"8x4WjoDbSxJZdR",
-		"sPtDhWcd1MfdAw==",
+	_, err := app.Encode(
+		[]byte("8x4WjoDbSxJZdR"),
+		[]byte("sPtDhWcd1MfdAw=="),
 	)
 	if err != nil {
 		t.Fail()
@@ -56,9 +61,9 @@ func BenchmarkEncode(b *testing.B) {
 
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			_, err := Encode(
-				"8x4WjoDbSxJZdR",
-				"xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==",
+			_, err := app.Encode(
+				[]byte("8x4WjoDbSxJZdR"),
+				[]byte("xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A=="),
 			)
 			if err != nil {
 				b.Fail()
